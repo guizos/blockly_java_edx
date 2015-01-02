@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <script src="../blockly_compressed.js"></script>
+	<script src="ace/ace.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../blocks_compressed.js"></script>
+	<script src="../java_compressed.js"></script>
+	<script src="../blocks/edx_custom.js"></script>
+    <script src="../msg/js/en.js"></script>
+    <style>
+      html, body {
+        background-color: #fff;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        height: 100%;
+      }
+	  #editor 
+	  { 
+	     position: absolute;
+	     top: 30px;
+	     right: 0;
+	     bottom: 0;
+	     left: 51%;
+		 max-width: 50%;
+		 height: 450px
+	   }
+	   #buttons
+	   {
+		   position: absolute;
+		   top:0;
+		   left: 51%;
+	   }
+    </style>
+    <script>
+      function init() {
+        Blockly.inject(document.getElementById('blocklyDiv'),
+            {path: '../', toolbox: document.getElementById('toolbox')});
+        // Let the top-level application know that Blockly is ready.
+        //window.parent.blocklyLoaded(Blockly);
+		Blockly.addChangeListener(generateCode);
+      }
+	  function generateCode() {
+		  var pre= "Class Edx\n{\n\tpublic static void main(String args[])\n{\n\t";
+		  var code = Blockly.Java.workspaceToCode();
+		  var post = "\n} \n}";
+	      var editor = ace.edit("editor");
+		  editor.setValue(pre+code+post);
+	  }
+   
+	  
+    </script>
+  </head>
+  <body onload="init()">  
+    <xml id="toolbox" style="display: none">
+      <category name="Variables" custom="VARIABLE"></category>
+	    <block type="math_single"></block>
+        <block type="controls_if"></block>
+        <block type="controls_repeat_ext"></block>
+        <block type="logic_compare"></block>
+        <block type="math_number"></block>
+        <block type="math_arithmetic"></block>
+        <block type="text"></block>
+        <block type="text_print"></block>
+    </xml>
+	<div id="blocklyDiv" style="height: 480px; width: 50%;"></div>
+	<div id="editor"></div>
+	<div id="buttons">
+		<button type="button">Compile</button>
+		<button type="button">Run</button>
+	</div>
+<script>
+var editor = ace.edit("editor");
+editor.setTheme("ace/theme/monokai");
+editor.getSession().setMode("ace/mode/java");
+</script>
+  </body>
+</html>
