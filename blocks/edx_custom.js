@@ -68,7 +68,7 @@ Blockly.Blocks['edx_print_variable'] = {
 Blockly.Blocks['edx_basic_declare_boolean'] = {
   init: function() {
     this.setColour(210);
-    this.appendDummyInput().appendField('new boolean');
+    this.appendDummyInput().appendField('boolean');
     var variable = new Blockly.FieldVariable('item');
     this.appendDummyInput().appendField(variable, 'VAR_BOOL');
     this.appendDummyInput().appendField(' = ');
@@ -104,7 +104,7 @@ Blockly.Blocks['edx_basic_declare_int'] = {
   init: function() {
     this.setColour(230);
     this.setHelpUrl(Blockly.Msg.VARIABLES_SET_HELPURL);
-    this.appendDummyInput().appendField('new integer');
+    this.appendDummyInput().appendField('integer');
     var variable = new Blockly.FieldVariable('item');
     this.appendDummyInput().appendField(variable, 'VAR');
     this.appendDummyInput().appendField(' = ');
