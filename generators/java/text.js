@@ -3,7 +3,7 @@
  * Visual Blocks Language
  *
  * Copyright 2012 Google Inc.
- * https://blockly.googlecode.com/
+ * https://developers.google.com/blockly/
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -69,14 +69,14 @@ Blockly.Java['text_append'] = function(block) {
       block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
   var argument0 = Blockly.Java.valueToCode(block, 'TEXT',
       Blockly.Java.ORDER_NONE) || '\'\'';
-  return varName + ' = new String(' + varName + ') + new String(' + argument0 + ');\n';
+  return varName + ' = String(' + varName + ') + String(' + argument0 + ');\n';
 };
 
 Blockly.Java['text_length'] = function(block) {
   // String length.
   var argument0 = Blockly.Java.valueToCode(block, 'VALUE',
       Blockly.Java.ORDER_FUNCTION_CALL) || '\'\'';
-  return [argument0 + '.length()', Blockly.Java.ORDER_MEMBER];
+  return [argument0 + '.length', Blockly.Java.ORDER_MEMBER];
 };
 
 Blockly.Java['text_isEmpty'] = function(block) {
@@ -229,7 +229,13 @@ Blockly.Java['text_trim'] = function(block) {
 Blockly.Java['text_print'] = function(block) {
   // Print statement.
   var argument0 = Blockly.Java.valueToCode(block, 'TEXT',
-      Blockly.Java.ORDER_NONE) || '""';
+      Blockly.Java.ORDER_NONE) || '\'\'';
+  return 'window.alert(' + argument0 + ');\n';
+};
+Blockly.Java['text_print_console'] = function(block) {
+  // Print statement.
+  var argument0 = Blockly.Java.valueToCode(block, 'TEXT',
+      Blockly.Java.ORDER_NONE) || '\'\'';
   return 'System.out.println(' + argument0 + ');\n';
 };
 

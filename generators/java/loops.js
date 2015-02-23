@@ -3,7 +3,7 @@
  * Visual Blocks Language
  *
  * Copyright 2012 Google Inc.
- * https://blockly.googlecode.com/
+ * https://developers.google.com/blockly/
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,7 +36,7 @@ Blockly.Java['controls_repeat'] = function(block) {
   branch = Blockly.Java.addLoopTrap(branch, block.id);
   var loopVar = Blockly.Java.variableDB_.getDistinctName(
       'count', Blockly.Variables.NAME_TYPE);
-  var code = 'for (int ' + loopVar + ' = 0; ' +
+  var code = 'for (var ' + loopVar + ' = 0; ' +
       loopVar + ' < ' + repeats + '; ' +
       loopVar + '++) {\n' +
       branch + '}\n';
@@ -56,9 +56,9 @@ Blockly.Java['controls_repeat_ext'] = function(block) {
   if (!repeats.match(/^\w+$/) && !Blockly.isNumber(repeats)) {
     var endVar = Blockly.Java.variableDB_.getDistinctName(
         'repeat_end', Blockly.Variables.NAME_TYPE);
-    code += 'int ' + endVar + ' = ' + repeats + ';\n';
+    code += 'var ' + endVar + ' = ' + repeats + ';\n';
   }
-  code += 'for (int ' + loopVar + ' = 0; ' +
+  code += 'for ( int ' + loopVar + ' = 0; ' +
       loopVar + ' < ' + endVar + '; ' +
       loopVar + '++) {\n' +
       branch + '}\n';
@@ -74,9 +74,11 @@ Blockly.Java['controls_whileUntil'] = function(block) {
   var branch = Blockly.Java.statementToCode(block, 'DO');
   branch = Blockly.Java.addLoopTrap(branch, block.id);
   if (until) {
-    argument0 = '!' + argument0;
+  	return 'do{\n' + branch + '}while (' + argument0 + ');\n';	
+  }else{
+  	return 'while (' + argument0 + ') {\n' + branch + '}\n';	
   }
-  return 'while (' + argument0 + ') {\n' + branch + '}\n';
+
 };
 
 Blockly.Java['controls_for'] = function(block) {
@@ -96,7 +98,7 @@ Blockly.Java['controls_for'] = function(block) {
       Blockly.isNumber(increment)) {
     // All arguments are simple numbers.
     var up = parseFloat(argument0) <= parseFloat(argument1);
-    code = 'for (' + variable0 + ' = ' + argument0 + '; ' +
+    code = 'for (int ' + variable0 + ' = ' + argument0 + '; ' +
         variable0 + (up ? ' <= ' : ' >= ') + argument1 + '; ' +
         variable0;
     var step = Math.abs(parseFloat(increment));
@@ -113,19 +115,19 @@ Blockly.Java['controls_for'] = function(block) {
     if (!argument0.match(/^\w+$/) && !Blockly.isNumber(argument0)) {
       var startVar = Blockly.Java.variableDB_.getDistinctName(
           variable0 + '_start', Blockly.Variables.NAME_TYPE);
-      code += 'int' + startVar + ' = ' + argument0 + ';\n';
+      code += 'var ' + startVar + ' = ' + argument0 + ';\n';
     }
     var endVar = argument1;
     if (!argument1.match(/^\w+$/) && !Blockly.isNumber(argument1)) {
       var endVar = Blockly.Java.variableDB_.getDistinctName(
           variable0 + '_end', Blockly.Variables.NAME_TYPE);
-      code += 'int ' + endVar + ' = ' + argument1 + ';\n';
+      code += 'var ' + endVar + ' = ' + argument1 + ';\n';
     }
     // Determine loop direction at start, in case one of the bounds
     // changes during loop execution.
     var incVar = Blockly.Java.variableDB_.getDistinctName(
         variable0 + '_inc', Blockly.Variables.NAME_TYPE);
-    code += 'int ' + incVar + ' = ';
+    code += 'var ' + incVar + ' = ';
     if (Blockly.isNumber(increment)) {
       code += Math.abs(increment) + ';\n';
     } else {
@@ -143,7 +145,7 @@ Blockly.Java['controls_for'] = function(block) {
   }
   return code;
 };
-//TODO
+
 Blockly.Java['controls_forEach'] = function(block) {
   // For each loop.
   var variable0 = Blockly.Java.variableDB_.getName(
@@ -156,7 +158,7 @@ Blockly.Java['controls_forEach'] = function(block) {
       variable0 + '_index', Blockly.Variables.NAME_TYPE);
   branch = Blockly.Java.INDENT + variable0 + ' = ' +
       argument0 + '[' + indexVar + '];\n' + branch;
-  var code = 'for (int ' + indexVar + ' :  ' + argument0 + ') {\n' +
+  var code = 'for (var ' + indexVar + ' in ' + argument0 + ') {\n' +
       branch + '}\n';
   return code;
 };

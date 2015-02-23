@@ -3,7 +3,7 @@
  * Visual Blocks Language
  *
  * Copyright 2012 Google Inc.
- * https://blockly.googlecode.com/
+ * https://developers.google.com/blockly/
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -49,6 +49,21 @@ Blockly.Java['controls_if'] = function(block) {
   return code + '\n';
 };
 
+Blockly.Java['logic_compare_strings'] = function(block) {
+  // Comparison operator strings.
+  var OPERATORS = {
+    'EQ': '.equals',
+  };
+  var operator = OPERATORS[block.getFieldValue('OP')];
+  var order = (operator == '==') ?
+      Blockly.Java.ORDER_EQUALITY : Blockly.Java.ORDER_RELATIONAL;
+  var argument0 = Blockly.Java.valueToCode(block, 'A', order) || '0';
+  var argument1 = Blockly.Java.valueToCode(block, 'B', order) || '0';
+  var code = argument0+ operator + '(' + argument1 + ')==true';
+  return [code, order];
+};
+
+
 Blockly.Java['logic_compare'] = function(block) {
   // Comparison operator.
   var OPERATORS = {
@@ -92,6 +107,8 @@ Blockly.Java['logic_operation'] = function(block) {
   var code = argument0 + ' ' + operator + ' ' + argument1;
   return [code, order];
 };
+
+
 
 Blockly.Java['logic_negate'] = function(block) {
   // Negation.

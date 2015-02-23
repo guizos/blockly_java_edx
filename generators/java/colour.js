@@ -3,7 +3,7 @@
  * Visual Blocks Language
  *
  * Copyright 2012 Google Inc.
- * https://blockly.googlecode.com/
+ * https://developers.google.com/blockly/
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +19,7 @@
  */
 
 /**
- * @fileoverview Generating Python for colour blocks.
+ * @fileoverview Generating Java for colour blocks.
  * @author fraser@google.com (Neil Fraser)
  */
 'use strict';
@@ -37,12 +37,22 @@ Blockly.Java['colour_picker'] = function(block) {
 
 Blockly.Java['colour_random'] = function(block) {
   // Generate a random colour.
-  Blockly.Java.definitions_['import_random'] = 'import java.security.SecureRandom;';
-  var code = 'public int random(){SecureRandom sr = new SecureRandom();return sr.nextInt();}';
   var functionName = Blockly.Java.provideFunction_(
-      'randomColour',
-      [ 'public int ' + Blockly.Java.FUNCTION_NAME_PLACEHOLDER_ + '() {',
-        '  SecureRandom sr = new SecureRandom();return sr.nextInt();',
+      'colour_random',
+      [ 'function ' + Blockly.Java.FUNCTION_NAME_PLACEHOLDER_ + '() {',
+        '  var num = Math.floor(Math.random() * Math.pow(2, 24));',
+        '  return \'#\' + (\'00000\' + num.toString(16)).substr(-6);',
+        '}']);
+  var code = functionName + '()';
+  return [code, Blockly.Java.ORDER_FUNCTION_CALL];
+};
+
+Blockly.Java['colour_pablo'] = function(block) {
+  // Generate a random colour.
+  var functionName = Blockly.Java.provideFunction_(
+      'colour_random',
+      [ 'function ' + Blockly.Java.FUNCTION_NAME_PLACEHOLDER_ + '() {',
+        '  System.out.println(\'Hola\')',
         '}']);
   var code = functionName + '()';
   return [code, Blockly.Java.ORDER_FUNCTION_CALL];
@@ -102,4 +112,3 @@ Blockly.Java['colour_blend'] = function(block) {
   var code = functionName + '(' + c1 + ', ' + c2 + ', ' + ratio + ')';
   return [code, Blockly.Java.ORDER_FUNCTION_CALL];
 };
-

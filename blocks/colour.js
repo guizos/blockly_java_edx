@@ -59,6 +59,21 @@ Blockly.Blocks['colour_random'] = {
   }
 };
 
+Blockly.Blocks['colour_pablo'] = {
+  /**
+   * Block for random colour.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.setHelpUrl(Blockly.Msg.COLOUR_RANDOM_HELPURL);
+    this.setColour(20);
+    this.appendDummyInput()
+        .appendField('pablo');
+    this.setOutput(true, 'Colour');
+    this.setTooltip(Blockly.Msg.COLOUR_RANDOM_TOOLTIP);
+  }
+};
+
 Blockly.Blocks['colour_rgb'] = {
   /**
    * Block for composing a colour from RGB components.

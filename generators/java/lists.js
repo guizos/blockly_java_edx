@@ -3,7 +3,7 @@
  * Visual Blocks Language
  *
  * Copyright 2012 Google Inc.
- * https://blockly.googlecode.com/
+ * https://developers.google.com/blockly/
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,6 +28,11 @@ goog.provide('Blockly.Java.lists');
 
 goog.require('Blockly.Java');
 
+
+Blockly.Java['lists_create_empty'] = function(block) {
+  // Create an empty list.
+  return ['[]', Blockly.Java.ORDER_ATOMIC];
+};
 
 Blockly.Java['lists_create_with'] = function(block) {
   // Create a list with any number of elements of any type.

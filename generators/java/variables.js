@@ -3,7 +3,7 @@
  * Visual Blocks Language
  *
  * Copyright 2012 Google Inc.
- * https://blockly.googlecode.com/
+ * https://developers.google.com/blockly/
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,8 +19,8 @@
  */
 
 /**
- * @fileoverview Generating Python for variable blocks.
- * @author q.neutron@gmail.com (Quynh Neutron)
+ * @fileoverview Generating Java for variable blocks.
+ * @author fraser@google.com (Neil Fraser)
  */
 'use strict';
 
@@ -42,18 +42,5 @@ Blockly.Java['variables_set'] = function(block) {
       Blockly.Java.ORDER_ASSIGNMENT) || '0';
   var varName = Blockly.Java.variableDB_.getName(
       block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
-  var type = "";
-  if(isNaN(argument0)){
-  	type = "String";
-  }else{
-  	if(argument0.indexOf('.')>=0){
-  		type = "double";
-  	}else{
-  		type = "int";
-  	}
-  }
-  if(argument0.indexOf('[')>=0){
-  	type = type + ' []';
-  }
-  return type + ' ' +varName + ' = ' + argument0 + ';\n';
+  return varName + ' = ' + argument0 + ';\n';
 };
