@@ -29,11 +29,6 @@ goog.provide('Blockly.Java.text');
 goog.require('Blockly.Java');
 
 
-Blockly.Java['text'] = function(block) {
-  // Text value.
-  var code = Blockly.Java.quote_(block.getFieldValue('TEXT'));
-  return [code, Blockly.Java.ORDER_ATOMIC];
-};
 
 Blockly.Java['text_join'] = function(block) {
   // Create a string made up of any number of elements of any type.
@@ -42,23 +37,23 @@ Blockly.Java['text_join'] = function(block) {
     return ['\'\'', Blockly.Java.ORDER_ATOMIC];
   } else if (block.itemCount_ == 1) {
     var argument0 = Blockly.Java.valueToCode(block, 'ADD0',
-        Blockly.Java.ORDER_NONE) || '\'\'';
+        Blockly.Java.ORDER_NONE) || '""';
     code = 'String(' + argument0 + ')';
     return [code, Blockly.Java.ORDER_FUNCTION_CALL];
   } else if (block.itemCount_ == 2) {
     var argument0 = Blockly.Java.valueToCode(block, 'ADD0',
-        Blockly.Java.ORDER_NONE) || '\'\'';
+        Blockly.Java.ORDER_NONE) || '""';
     var argument1 = Blockly.Java.valueToCode(block, 'ADD1',
-        Blockly.Java.ORDER_NONE) || '\'\'';
+        Blockly.Java.ORDER_NONE) || '""';
     code = 'String(' + argument0 + ') + String(' + argument1 + ')';
     return [code, Blockly.Java.ORDER_ADDITION];
   } else {
     code = new Array(block.itemCount_);
     for (var n = 0; n < block.itemCount_; n++) {
       code[n] = Blockly.Java.valueToCode(block, 'ADD' + n,
-          Blockly.Java.ORDER_COMMA) || '\'\'';
+          Blockly.Java.ORDER_COMMA) || '""';
     }
-    code = '[' + code.join(',') + '].join(\'\')';
+    code = '[' + code.join(',') + '].join("")';
     return [code, Blockly.Java.ORDER_FUNCTION_CALL];
   }
 };
@@ -68,21 +63,21 @@ Blockly.Java['text_append'] = function(block) {
   var varName = Blockly.Java.variableDB_.getName(
       block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
   var argument0 = Blockly.Java.valueToCode(block, 'TEXT',
-      Blockly.Java.ORDER_NONE) || '\'\'';
+      Blockly.Java.ORDER_NONE) || '""';
   return varName + ' = String(' + varName + ') + String(' + argument0 + ');\n';
 };
 
 Blockly.Java['text_length'] = function(block) {
   // String length.
   var argument0 = Blockly.Java.valueToCode(block, 'VALUE',
-      Blockly.Java.ORDER_FUNCTION_CALL) || '\'\'';
+      Blockly.Java.ORDER_FUNCTION_CALL) || '""';
   return [argument0 + '.length', Blockly.Java.ORDER_MEMBER];
 };
 
 Blockly.Java['text_isEmpty'] = function(block) {
   // Is the string null?
   var argument0 = Blockly.Java.valueToCode(block, 'VALUE',
-      Blockly.Java.ORDER_MEMBER) || '\'\'';
+      Blockly.Java.ORDER_MEMBER) || '""';
   return ['!' + argument0, Blockly.Java.ORDER_LOGICAL_NOT];
 };
 
@@ -91,9 +86,9 @@ Blockly.Java['text_indexOf'] = function(block) {
   var operator = block.getFieldValue('END') == 'FIRST' ?
       'indexOf' : 'lastIndexOf';
   var argument0 = Blockly.Java.valueToCode(block, 'FIND',
-      Blockly.Java.ORDER_NONE) || '\'\'';
+      Blockly.Java.ORDER_NONE) || '""';
   var argument1 = Blockly.Java.valueToCode(block, 'VALUE',
-      Blockly.Java.ORDER_MEMBER) || '\'\'';
+      Blockly.Java.ORDER_MEMBER) || '""';
   var code = argument1 + '.' + operator + '(' + argument0 + ') + 1';
   return [code, Blockly.Java.ORDER_MEMBER];
 };
@@ -105,7 +100,7 @@ Blockly.Java['text_charAt'] = function(block) {
   var at = Blockly.Java.valueToCode(block, 'AT',
       Blockly.Java.ORDER_UNARY_NEGATION) || '1';
   var text = Blockly.Java.valueToCode(block, 'VALUE',
-      Blockly.Java.ORDER_MEMBER) || '\'\'';
+      Blockly.Java.ORDER_MEMBER) || '""';
   switch (where) {
     case 'FIRST':
       var code = text + '.charAt(0)';
@@ -144,7 +139,7 @@ Blockly.Java['text_charAt'] = function(block) {
 Blockly.Java['text_getSubstring'] = function(block) {
   // Get substring.
   var text = Blockly.Java.valueToCode(block, 'STRING',
-      Blockly.Java.ORDER_MEMBER) || '\'\'';
+      Blockly.Java.ORDER_MEMBER) || '""';
   var where1 = block.getFieldValue('WHERE1');
   var where2 = block.getFieldValue('WHERE2');
   var at1 = Blockly.Java.valueToCode(block, 'AT1',
@@ -194,7 +189,7 @@ Blockly.Java['text_changeCase'] = function(block) {
   if (operator) {
     // Upper and lower case are functions built into Java.
     var argument0 = Blockly.Java.valueToCode(block, 'TEXT',
-        Blockly.Java.ORDER_MEMBER) || '\'\'';
+        Blockly.Java.ORDER_MEMBER) || '""';
     code = argument0 + operator;
   } else {
     // Title case is not a native Java function.  Define one.
@@ -222,20 +217,20 @@ Blockly.Java['text_trim'] = function(block) {
   };
   var operator = OPERATORS[block.getFieldValue('MODE')];
   var argument0 = Blockly.Java.valueToCode(block, 'TEXT',
-      Blockly.Java.ORDER_MEMBER) || '\'\'';
+      Blockly.Java.ORDER_MEMBER) || '""';
   return [argument0 + operator, Blockly.Java.ORDER_FUNCTION_CALL];
 };
 
 Blockly.Java['text_print'] = function(block) {
   // Print statement.
   var argument0 = Blockly.Java.valueToCode(block, 'TEXT',
-      Blockly.Java.ORDER_NONE) || '\'\'';
+      Blockly.Java.ORDER_NONE) || '""';
   return 'window.alert(' + argument0 + ');\n';
 };
 Blockly.Java['text_print_console'] = function(block) {
   // Print statement.
   var argument0 = Blockly.Java.valueToCode(block, 'TEXT',
-      Blockly.Java.ORDER_NONE) || '\'\'';
+      Blockly.Java.ORDER_NONE) || '""';
   return 'System.out.println(' + argument0 + ');\n';
 };
 
@@ -253,7 +248,7 @@ Blockly.Java['text_prompt'] = function(block) {
 Blockly.Java['text_prompt_ext'] = function(block) {
   // Prompt function (external message).
   var msg = Blockly.Java.valueToCode(block, 'TEXT',
-      Blockly.Java.ORDER_NONE) || '\'\'';
+      Blockly.Java.ORDER_NONE) || '""';
   var code = 'window.prompt(' + msg + ')';
   var toNumber = block.getFieldValue('TYPE') == 'NUMBER';
   if (toNumber) {

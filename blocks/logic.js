@@ -262,9 +262,9 @@ Blockly.Blocks['logic_compare_strings'] = {
    */
   init: function() {
     var OPERATORS = Blockly.RTL ? [
-          ['is equal to(strings)', 'EQ'],
+          ['is equal to(strings)', 'EQ']
         ] : [
-          ['is equal to(strings)', 'EQ'],
+          ['is equal to(strings)', 'EQ']
         ];
     this.setColour(77);
     this.setOutput(true, 'Boolean');
@@ -376,24 +376,6 @@ Blockly.Blocks['logic_negate'] = {
                         ['BOOL', 'Boolean', Blockly.ALIGN_RIGHT],
                         Blockly.ALIGN_RIGHT);
     this.setTooltip(Blockly.Msg.LOGIC_NEGATE_TOOLTIP);
-  }
-};
-
-Blockly.Blocks['logic_boolean'] = {
-  /**
-   * Block for boolean data type: true and false.
-   * @this Blockly.Block
-   */
-  init: function() {
-    var BOOLEANS =
-        [[Blockly.Msg.LOGIC_BOOLEAN_TRUE, 'TRUE'],
-         [Blockly.Msg.LOGIC_BOOLEAN_FALSE, 'FALSE']];
-    this.setHelpUrl(Blockly.Msg.LOGIC_BOOLEAN_HELPURL);
-    this.setColour(210);
-    this.setOutput(true, 'Boolean');
-    this.appendDummyInput()
-        .appendField(new Blockly.FieldDropdown(BOOLEANS), 'BOOL');
-    this.setTooltip(Blockly.Msg.LOGIC_BOOLEAN_TOOLTIP);
   }
 };
 

@@ -388,35 +388,7 @@ Blockly.Blocks['procedures_mutatorcontainer'] = {
   }
 };
 
-Blockly.Blocks['procedures_mutatorarg'] = {
-  /**
-   * Mutator block for procedure argument.
-   * @this Blockly.Block
-   */
-  init: function() {
-    this.setColour(290);
-    this.appendDummyInput()
-        .appendField(Blockly.Msg.PROCEDURES_MUTATORARG_TITLE)
-        .appendField(new Blockly.FieldTextInput('x', this.validator_), 'NAME');
-    this.setPreviousStatement(true);
-    this.setNextStatement(true);
-    this.setTooltip(Blockly.Msg.PROCEDURES_MUTATORARG_TOOLTIP);
-    this.contextMenu = false;
-  },
-  /**
-   * Obtain a valid name for the procedure.
-   * Merge runs of whitespace.  Strip leading and trailing whitespace.
-   * Beyond this, all names are legal.
-   * @param {string} newVar User-supplied name.
-   * @return {?string} Valid name, or null if a name was not specified.
-   * @private
-   * @this Blockly.Block
-   */
-  validator_: function(newVar) {
-    newVar = newVar.replace(/[\s\xa0]+/g, ' ').replace(/^ | $/g, '');
-    return newVar || null;
-  }
-};
+
 
 Blockly.Blocks['procedures_callnoreturn'] = {
   /**
@@ -728,5 +700,35 @@ Blockly.Blocks['procedures_ifreturn'] = {
     } else {
       this.setWarningText(Blockly.Msg.PROCEDURES_IFRETURN_WARNING);
     }
+  }
+};
+
+Blockly.Blocks['procedures_mutatorarg'] = {
+  /*
+   * Mutator block for procedure argument.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.setColour(290);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.PROCEDURES_MUTATORARG_TITLE)
+        .appendField(new Blockly.FieldTextInput('x', this.validator_), 'NAME');
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setTooltip(Blockly.Msg.PROCEDURES_MUTATORARG_TOOLTIP);
+    this.contextMenu = false;
+  },
+  /**
+   * Obtain a valid name for the procedure.
+   * Merge runs of whitespace.  Strip leading and trailing whitespace.
+   * Beyond this, all names are legal.
+   * @param {string} newVar User-supplied name.
+   * @return {?string} Valid name, or null if a name was not specified.
+   * @private
+   * @this Blockly.Block
+  */ 
+  validator_: function(newVar) {
+    newVar = newVar.replace(/[\s\xa0]+/g, ' ').replace(/^ | $/g, '');
+    return newVar || null;
   }
 };

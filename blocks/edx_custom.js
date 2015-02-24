@@ -144,7 +144,7 @@ Blockly.Blocks['edx_math_integer'] = {
   */
   init: function() {
     this.setHelpUrl(Blockly.Msg.MATH_NUMBER_HELPURL);
-    this.setColour(230);
+    this.setColour(60);
     this.appendDummyInput()
     .appendField(new Blockly.FieldTextInput('0',
     Blockly.FieldTextInput.integerValidator), 'NUM');

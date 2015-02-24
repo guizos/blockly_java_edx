@@ -52,7 +52,7 @@ Blockly.Java['controls_if'] = function(block) {
 Blockly.Java['logic_compare_strings'] = function(block) {
   // Comparison operator strings.
   var OPERATORS = {
-    'EQ': '.equals',
+    'EQ': '.equals'
   };
   var operator = OPERATORS[block.getFieldValue('OP')];
   var order = (operator == '==') ?
@@ -119,11 +119,7 @@ Blockly.Java['logic_negate'] = function(block) {
   return [code, order];
 };
 
-Blockly.Java['logic_boolean'] = function(block) {
-  // Boolean values true and false.
-  var code = (block.getFieldValue('BOOL') == 'TRUE') ? 'true' : 'false';
-  return [code, Blockly.Java.ORDER_ATOMIC];
-};
+
 
 Blockly.Java['logic_null'] = function(block) {
   // Null data type.
